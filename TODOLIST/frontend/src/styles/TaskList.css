@@ -1,0 +1,101 @@
+/* Task List Container */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Task List Item */
+.task-list-item {
+    font-size: 1.2em;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.task-list-item.completed {
+    background-color: #e0ffe0;  /* Light green for completed tasks */
+    color: #4caf50;
+}
+
+.task-list-item:hover {
+    background-color: #f1f1f1;
+}
+
+span {
+    cursor: pointer;
+}
+
+/* Button Style */
+button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e60000;
+}
+
+/* Strikethrough text when task is completed */
+li.completed {
+    text-decoration: line-through;
+    color: #b3b3b3;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Table Header */
+th {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Table Cells */
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Task List Item */
+.task-list-item {
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+/* Completed Task Style */
+.task-list-item.completed {
+    color: #4caf50;
+    text-decoration: line-through;
+}
+
+/* Button Style */
+button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+button:hover {
+    background-color: #e60000;
+}
