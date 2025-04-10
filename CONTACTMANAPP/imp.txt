@@ -1,0 +1,14 @@
+I want to contenerize this both backend and frontend.
+
+1. sudo apt update
+
+##To install docker steps
+2.. sudo apt install docker.io 
+3. sudo apt install docker-compose
+
+#In Contact management app folder docker compose
+4. sudo docker-compose up or docker-compose up --build
+
+
+
+

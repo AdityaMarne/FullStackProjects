@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "127.0.0.1:5000:5000"  # Bind backend to localhost only (port 5000)
+    depends_on:
+      - db
+    restart: always  # Always restart the backend service if it stops
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:3000:3000"  # Bind frontend to localhost only (port 3000)
+    depends_on:
+      - backend
+    restart: always  # Always restart the frontend service if it stops
+
+  db:
+    image: mysql:8
+    restart: always  # Always restart the MySQL container if it stops
+    environment:
+      MYSQL_ROOT_PASSWORD: Root123!
+      MYSQL_DATABASE: todo_db
+    ports:
+      - "127.0.0.1:3307:3306"  # Bind MySQL to localhost only (port 3307)
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data: {}
+
