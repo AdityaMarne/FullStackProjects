@@ -1,0 +1,2 @@
+npm install axios react-markdown react-router-dom
+npm install -D tailwindcss postcss autoprefixer  

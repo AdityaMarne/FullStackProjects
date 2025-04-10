@@ -1,0 +1,77 @@
+/* Post Actions Styles */
+:root {
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d4;
+    --error-color: #ef233c;
+    --error-dark: #d90429;
+    --success-color: #2ecc71;
+    --success-dark: #27ae60;
+    --text-color: #2b2d42;
+    --light-gray: #f8f9fa;
+    --border-radius: 6px;
+    --transition: all 0.2s ease;
+  }
+  
+  .post-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+    outline: none;
+  }
+  
+  .action-btn svg {
+    fill: currentColor;
+  }
+  
+  .edit-btn {
+    background-color: rgba(67, 97, 238, 0.1);
+    color: var(--primary-color);
+  }
+  
+  .edit-btn:hover {
+    background-color: rgba(67, 97, 238, 0.2);
+  }
+  
+  .delete-btn {
+    background-color: rgba(239, 35, 60, 0.1);
+    color: var(--error-color);
+  }
+  
+  .delete-btn:hover {
+    background-color: rgba(239, 35, 60, 0.2);
+  }
+  
+  .feature-btn {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--success-color);
+  }
+  
+  .feature-btn:hover {
+    background-color: rgba(46, 204, 113, 0.2);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .post-actions {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .action-btn {
+      justify-content: center;
+      width: 100%;
+    }
+  }

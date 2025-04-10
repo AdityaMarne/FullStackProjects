@@ -1,0 +1,180 @@
+/* Update Post Page Styles */
+:root {
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d4;
+    --text-color: #2b2d42;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #adb5bd;
+    --error-color: #ef233c;
+    --success-color: #2ecc71;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  .update-post-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    background-color: var(--light-gray);
+  }
+  
+  .update-post-card {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .update-post-title {
+    color: var(--text-color);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .update-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: 500;
+  }
+  
+  .form-input {
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    width: 100%;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+  }
+  
+  .form-textarea {
+    padding: 1rem;
+    border: 1px solid var(--medium-gray);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    width: 100%;
+    resize: vertical;
+    min-height: 300px;
+  }
+  
+  .form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .update-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+  }
+  
+  .update-button:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .update-button:disabled {
+    background-color: var(--dark-gray);
+    cursor: not-allowed;
+  }
+  
+  .cancel-button {
+    background-color: var(--medium-gray);
+    color: var(--text-color);
+    border: none;
+    padding: 0.9rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    flex: 1;
+  }
+  
+  .cancel-button:hover {
+    background-color: var(--dark-gray);
+    color: white;
+  }
+  
+  .cancel-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .message {
+    padding: 0.8rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .message.error {
+    background-color: rgba(239, 35, 60, 0.1);
+    color: var(--error-color);
+  }
+  
+  .message.success {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: var(--success-color);
+  }
+  
+  .loading-indicator {
+    text-align: center;
+    padding: 2rem;
+    color: var(--dark-gray);
+    font-size: 1.1rem;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .update-post-container {
+      padding: 1rem;
+    }
+    
+    .update-post-card {
+      padding: 1.5rem;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+  }

@@ -1,0 +1,7 @@
+Backend: Python Flask with Flask-RESTful for API endpoints
+
+Frontend: React with React Router for navigation
+
+Database: MySQL with raw SQL queries
+
+Authentication: JWT (JSON Web Tokens)
