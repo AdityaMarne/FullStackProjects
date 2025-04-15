@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, redirect, request, jsonify, url_for
 from db import get_db_connection
 from utils.password import hash_password, check_password
 from utils.jwt_helper import generate_tokens
@@ -142,3 +142,57 @@ def reset_password(token):
     cursor.close()
     conn.close()
     return jsonify({"msg": "Password has been reset successfully"}), 200
+
+from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.contrib.github import make_github_blueprint, github
+import os
+
+# Google OAuth setup
+google_bp = make_google_blueprint(
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    redirect_to="google_login"
+)
+
+# GitHub OAuth setup
+github_bp = make_github_blueprint(
+    client_id=os.getenv("GITHUB_CLIENT_ID"),
+    client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
+    redirect_to="github_login"
+)
+
+@auth_bp.route("/github-login")
+def github_login():
+    if not github.authorized:
+        return redirect(url_for("github.login"))
+
+    resp = github.get("/user")
+    info = resp.json()
+    email = info.get("email")
+
+    # Fallback: request primary email from GitHub
+    if not email:
+        email_resp = github.get("/user/emails")
+        emails = email_resp.json()
+        for e in emails:
+            if e.get("primary") and e.get("verified"):
+                email = e["email"]
+                break
+
+    if not email:
+        return jsonify({"msg": "Unable to fetch GitHub email"}), 400
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+    user = cursor.fetchone()
+
+    if not user:
+        cursor.execute("INSERT INTO users (email, password, is_verified) VALUES (%s, %s, %s)", (email, "", True))
+        conn.commit()
+        cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        user = cursor.fetchone()
+
+    token = generate_tokens(user["id"])
+    return jsonify({"access": token})

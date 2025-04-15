@@ -36,7 +36,7 @@ function App() {
   return (
     <Router>
       <nav>
-        <Link to="/">Register</Link> | <Link to="/login">Login</Link> | <Link to="/dashboard">Dashboard</Link> | <Link to="/forgot-password">ForgotPassword</Link> | <Link to="/reset-password/:token">ResetPassword</Link>
+        <Link to="/">Register</Link> | <Link to="/login">Login</Link> | <Link to="/dashboard">Dashboard</Link> | <Link to="/forgot-password">ForgotPassword</Link> | <Link to="/reset-password/:token">ResetPassword</Link> | <a href="http://localhost:5000/login/github">Login with GitHub</a>
       </nav>
       <Routes>
         <Route path="/" element={<Register />} />
