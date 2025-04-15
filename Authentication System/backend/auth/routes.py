@@ -143,6 +143,22 @@ def reset_password(token):
     conn.close()
     return jsonify({"msg": "Password has been reset successfully"}), 200
 
+# Google:
+#   Go to: https://console.cloud.google.com/apis/credentials
+
+#   Create OAuth 2.0 Client ID
+
+#   Authorized redirect URI: http://localhost:5000/login/google/authorized
+
+# GitHub:
+#   Go to: https://github.com/settings/developers
+
+#   Register a new OAuth App
+
+#    Homepage: http://localhost:3000
+
+#   Callback: http://localhost:5000/login/github/authorized
+
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.contrib.github import make_github_blueprint, github
 import os
@@ -160,6 +176,31 @@ github_bp = make_github_blueprint(
     client_secret=os.getenv("GITHUB_CLIENT_SECRET"),
     redirect_to="github_login"
 )
+
+@auth_bp.route("/google-login")
+def google_login():
+    if not google.authorized:
+        return redirect(url_for("google.login"))
+
+    resp = google.get("/oauth2/v2/userinfo")
+    info = resp.json()
+    email = info["email"]
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+    user = cursor.fetchone()
+
+    if not user:
+        cursor.execute("INSERT INTO users (email, password, is_verified) VALUES (%s, %s, %s)", (email, "", True))
+        conn.commit()
+        cursor.execute("SELECT * FROM users WHERE email=%s", (email,))
+        user = cursor.fetchone()
+
+    token = generate_tokens(user["id"])
+
+    return jsonify({"access": token})
 
 @auth_bp.route("/github-login")
 def github_login():
