@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=auth_db
+      - JWT_SECRET=supersecretkey
+      - GOOGLE_CLIENT_ID=your-client-id
+      - GOOGLE_CLIENT_SECRET=your-client-secret
+      - GITHUB_CLIENT_ID=your-client-id
+      - GITHUB_CLIENT_SECRET=your-client-secret
+    depends_on:
+      - db
+    restart: always
+  
+  frontend:
+    build: ./frontend
+    ports:
+      - "127.0.0.1:3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    restart: always
+
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: auth_db
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+   db-data: {}

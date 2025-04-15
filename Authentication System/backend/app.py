@@ -18,4 +18,4 @@ app.register_blueprint(google_bp, url_prefix="/login")
 app.register_blueprint(github_bp, url_prefix="/login")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
