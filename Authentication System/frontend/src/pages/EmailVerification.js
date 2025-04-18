@@ -8,7 +8,7 @@ function EmailVerification() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/auth/verify-email/${token}`)
+      .get(`http://localhost:5000/auth/verify-email/${token}`)
       .then((res) => setMsg(res.data.msg))
       .catch((err) => setMsg(err.response?.data?.msg || 'Verification failed'));
   }, [token]);
