@@ -42,7 +42,45 @@ def get_product(id):
         return jsonify({'error':'Product not found'}), 404
     return jsonify(product)
 
-
+@products_bp.route('/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_product(id):
+    user = get_jwt_identity()
+    if user['role'] != 'admin':
+        return jsonify({"error":"Unauthorized"}), 403
+    
+    data = request.json
+    db = get_db_connection()
+    cursor = db.cursor()
+    try:
+        cursor.execute("""
+            UPDATE products
+            SET name=%s, description=%s, price=%s, stock=%s, image_url=%s, category_id=%s
+            WHERE id=%s
+        """, (data['name'], data['description'], data['price'], data['stock'],
+              data['image_url'], data['category_id'], id))
+        db.commit()
+        return jsonify({"msg":"Product updated"})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error":str(e)}), 400
+    
+@products_bp.route('<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_product(id):
+    user = get_jwt_identity()
+    if user['role'] != 'admin':
+        return jsonify({"error":"Unauthorized"}), 403
+    
+    db = get_db_connection()
+    cursor = db.cursor()
+    try:
+        cursor.execute("DELETE FROM products WHERE id = %s", (id,))
+        db.commit()
+        return jsonify({'message': 'Product deleted'})
+    except Exception as e:
+        db.rollback()
+        return jsonify({"error": str(e)}), 400
 
 
 
